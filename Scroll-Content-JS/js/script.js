@@ -8,20 +8,18 @@
 // 4 - Ativar a função de animação toda vez que o usuário utilizar o Scroll
 // 5 - Otimizar ativação
 
-const debounce = function (func, wait, immediate) {
-    let timeout;
-    return function (...args) {
+const debounce = (func, wait, immediate, timeout) => 
+(...args) => {
         const context = this;
-        const later = function () {
-            timeout = null;
-            if (!immediate) func.apply(context, args);
+        const later =  () => {
+            if (!immediate) func(context, args);
         };
         const callNow = immediate && !timeout;
         clearTimeout(timeout);
         timeout = setTimeout(later, wait);
-        if (callNow) func.apply(context, args);
+        if (callNow) func(context, args);
     };
-};
+
 
 const target = document.querySelectorAll('[data-animation]');
 const animationClass = 'animate';
@@ -31,6 +29,7 @@ function animeScroll() {
     target.forEach((element) => {
         if ((windowTop) > element.offsetTop) {
             element.classList.add(animationClass);
+            console.log('Avelino')
         } else {
             element.classList.remove(animationClass)
         };
