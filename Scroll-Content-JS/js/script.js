@@ -10,14 +10,13 @@
 
 const debounce = (func, wait, immediate, timeout) => 
 (...args) => {
-        const context = this;
         const later =  () => {
-            if (!immediate) func(context, args);
+            if (!immediate) func(args);
         };
         const callNow = immediate && !timeout;
         clearTimeout(timeout);
         timeout = setTimeout(later, wait);
-        if (callNow) func(context, args);
+        if (callNow) func(args);
     };
 
 
